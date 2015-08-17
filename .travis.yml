@@ -11,7 +11,7 @@ script:
 - cd releng/org.yakindu.sct.releng
 - mvn clean verify
 - cd ../org.yakindu.sct.repository/target/repository
-- zip updatesite.zip 
+- zip updatesite.zip *.*
 deploy:
   skip_cleanup: true
   provider: releases
