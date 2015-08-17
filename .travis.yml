@@ -4,7 +4,11 @@ jdk: oraclejdk7
 cache:
   directories:
   - $HOME/.m2
-env: DISPLAY=:99.0
+env:
+  matrix:
+  - DISPLAY=:99.0
+  global:
+    secure: JlyegDL2Py0e0PWdFrOWIw915LN30HXlqJjsYh69LXaRj/10l4Kf9SZIKKzX33Vs8Ng9GCbHRhu/LUBnPGMB2HIVYGbdfz6FKfavWb0pD6kfMiLZ7jAFQQly9681Vkscv5RwMGtRzTJA1T5zUFzB5PsKacBCh/vc5CDhJzHpF/s=
 before_install:
 - sh -e /etc/init.d/xvfb start - sleep 10
 script:
@@ -15,9 +19,8 @@ script:
 deploy:
   skip_cleanup: true
   provider: releases
-  api_key:
-    secure: XZO8d1SmfRe5XdBghUv+cyxhoPRNjCNFo5rc/BSadFAOaGsn3HCF9oG7FSI4SlUPBX6D45Zk0iR/vYHKSOWsnZ+dqJL1/CpG5emasCuAKruIUdL5gmZ+FzfQ+kXw5dRnCLPYPclCaJ+TpJSgbDzQFibTnOgbPMFyQUSCaaumYn8=
+  api_key: ${GITHUB_TOKEN}
   file: ../org.yakindu.sct.repository/target/repository/updatesite.zip
   on:
     tags: Yakindu/statecharts
-    condition: "$TRAVIS_TAG =~ ^release.*$"
+    condition: $TRAVIS_TAG =~ ^release.*$
